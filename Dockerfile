@@ -23,37 +23,36 @@ RUN apt-get update && apt-get install -y \
     php8.1-sqlite3 \
     php8.1-xdebug 
 
-RUN apt-get update
-RUN apt-get install -y software-properties-common && add-apt-repository ppa:ondrej/php -y
-RUN apt-get install -y software-properties-common && add-apt-repository ppa:openswoole/ppa -y
-RUN apt-get install -y php8.1-openswoole
-
+RUN apt update
+RUN apt install -y software-properties-common && add-apt-repository ppa:openswoole/ppa -y
+# RUN apt-get install -y php8.1-openswoole
+RUN apt-get install -y build-essential
 # RUN pecl channel-update pecl.php.net 
-# RUN pecl install swoole
+RUN pecl install -n swoole
 
 
-WORKDIR /var/www/html
+# WORKDIR /var/www/html
 
-RUN apt-get install -y nodejs
+# RUN apt-get install -y nodejs
 
-RUN apt-get install -y npm
+# RUN apt-get install -y npm
 
-RUN npm install --save-dev chokidar
+# RUN npm install --save-dev chokidar
 
-WORKDIR /var/www/html/Romigo
-COPY --from=composer /usr/bin/composer /usr/bin/composer
+# WORKDIR /var/www/html/Romigo
+# COPY --from=composer /usr/bin/composer /usr/bin/composer
 
-ENV COMPOSER_ALLOW_SUPERUSER=1
-
-
-ARG MOUNT_PATH
+# ENV COMPOSER_ALLOW_SUPERUSER=1
 
 
-CMD echo "xdebug.mode=develop,debug,coverage" >> /etc/php/8.1/cli/php.ini;\ 
-    bash -c "echo 'extension=swoole' >> $(php -i | grep /.+/php.ini -oE)" ;\
-    composer install ;\
-    echo 1| php artisan octane:install ;\
-    php artisan key:generate ;\
-    # php artisan migrate ;\
-    # php artisan db:seed ;\
-    php artisan octane:start --server=swoole --host=0.0.0.0 --port=8000 --workers=auto --task-workers=auto --max-requests=500 --watch
+# ARG MOUNT_PATH
+
+
+# CMD echo "xdebug.mode=develop,debug,coverage" >> /etc/php/8.1/cli/php.ini;\ 
+#     bash -c "echo 'extension=swoole' >> $(php -i | grep /.+/php.ini -oE)" ;\
+#     composer install ;\
+#     echo 1| php artisan octane:install ;\
+#     php artisan key:generate ;\
+#     # php artisan migrate ;\
+#     # php artisan db:seed ;\
+#     php artisan octane:start --server=swoole --host=0.0.0.0 --port=8000 --workers=auto --task-workers=auto --max-requests=500 --watch
