@@ -34,21 +34,21 @@ RUN apt-get install -y php8.1-openswoole
 RUN pecl install swoole
 
 
-WORKDIR /var/www/html
+# WORKDIR /var/www/html
 
-RUN apt-get install -y nodejs
+# RUN apt-get install -y nodejs
 
-RUN apt-get install -y npm
+# RUN apt-get install -y npm
 
-RUN npm install --save-dev chokidar
+# RUN npm install --save-dev chokidar
 
-WORKDIR /var/www/html/Romigo
-COPY --from=composer /usr/bin/composer /usr/bin/composer
+# WORKDIR /var/www/html/Romigo
+# COPY --from=composer /usr/bin/composer /usr/bin/composer
 
-ENV COMPOSER_ALLOW_SUPERUSER=1
+# ENV COMPOSER_ALLOW_SUPERUSER=1
 
 
-ARG MOUNT_PATH
+# ARG MOUNT_PATH
 
 
 CMD echo "xdebug.mode=develop,debug,coverage" >> /etc/php/8.1/cli/php.ini;\ 
