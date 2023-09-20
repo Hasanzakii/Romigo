@@ -26,10 +26,12 @@ RUN apt-get update && apt-get install -y \
 RUN apt-get update
 RUN apt-get install -y software-properties-common && add-apt-repository ppa:ondrej/php -y
 RUN apt-get install -y software-properties-common && add-apt-repository ppa:openswoole/ppa -y
+RUN apt-get install -y g++
+RUN apt-get install -y make
 RUN apt-get install -y php8.1-openswoole
 
 # RUN pecl channel-update pecl.php.net 
-# RUN pecl install swoole
+RUN pecl install swoole
 
 
 WORKDIR /var/www/html
@@ -56,4 +58,4 @@ CMD echo "xdebug.mode=develop,debug,coverage" >> /etc/php/8.1/cli/php.ini;\
     php artisan key:generate ;\
     # php artisan migrate ;\
     # php artisan db:seed ;\
-    php artisan octane:start --server=swoole --host=0.0.0.0 --port=8000 --workers=auto --task-workers=auto --max-requests=500 --watch
+    php artisan octane:start --server=swoole --host=0.0.0.0 --port=8002 --workers=auto --task-workers=auto --max-requests=500 --watch
